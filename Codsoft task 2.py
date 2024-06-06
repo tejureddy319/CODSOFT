@@ -1,51 +1,55 @@
-import tkinter as tk
-from tkinter import messagebox
+# This function adds two numbers
+def add(x, y):
+    return x + y
 
-def click_button(item):
-    current = entry.get()
-    entry.delete(0, tk.END)
-    entry.insert(tk.END, current + str(item))
-def clear_entry():
-    entry.delete(0, tk.END)
+# This function subtracts two numbers
+def subtract(x, y):
+    return x - y
 
-def calculate():
-    try:
-        result = eval(entry.get())
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, str(result))
-    except Exception as e:
-        messagebox.showerror("Error", "Invalid Input")
+# This function multiplies two numbers
+def multiply(x, y):
+    return x * y
 
-root = tk.Tk()
-root.title("Simple Calculator")
-
-entry = tk.Entry(root, width=16, font=('Arial', 24), bd=8, insertwidth=2, bg="powder blue", justify='right')
-entry.grid(row=0, column=0, columnspan=4)
+# This function divides two numbers
+def divide(x, y):
+    return x / y
 
 
-buttons = [
-    '7', '8', '9', '/',
-    '4', '5', '6', '*',
-    '1', '2', '3', '-',
-    '0', 'C', '=', '+'
-]
-row_val = 1
-col_val = 0
-for button in buttons:
-    if button == 'C':
-        btn = tk.Button(root, text=button, padx=20, pady=20, bd=8, fg="black", font=('Arial', 18),
-                        command=clear_entry)
-    elif button == '=':
-        btn = tk.Button(root, text=button, padx=20, pady=20, bd=8, fg="black", font=('Arial', 18),
-                        command=calculate)
+print("Select operation.")
+print("1.Add")
+print("2.Subtract")
+print("3.Multiply")
+print("4.Divide")
+
+while True:
+    # take input from the user
+    choice = input("Enter choice(1/2/3/4): ")
+
+    # check if choice is one of the four options
+    if choice in ('1', '2', '3', '4'):
+        try:
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+
+        if choice == '1':
+            print(num1, "+", num2, "=", add(num1, num2))
+
+        elif choice == '2':
+            print(num1, "-", num2, "=", subtract(num1, num2))
+
+        elif choice == '3':
+            print(num1, "*", num2, "=", multiply(num1, num2))
+
+        elif choice == '4':
+            print(num1, "/", num2, "=", divide(num1, num2))
+        
+        # check if user wants another calculation
+        # break the while loop if answer is no
+        next_calculation = input("Let's do next calculation? (yes/no): ")
+        if next_calculation == "no":
+          break
     else:
-        btn = tk.Button(root, text=button, padx=20, pady=20, bd=8, fg="black", font=('Arial', 18),
-                        command=lambda b=button: click_button(b))
-    btn.grid(row=row_val, column=col_val)
-    col_val += 1
-    if col_val > 3:
-        col_val = 0
-        row_val += 1
-
-
-root.mainloop()
+        print("Invalid Input")
